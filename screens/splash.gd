@@ -1,8 +1,22 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	yield(get_tree().create_timer(3.0), "timeout")
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	randomize()
+	
+	$ColorRect.color = Color8(rng.randi_range(0, 100), rng.randi_range(0, 100), rng.randi_range(0, 100))
+	
+	var animation = ['intro', 'intro_alternative']
+	animation.shuffle()
+	
+	$AnimationPlayer.playback_speed = rng.randf_range(1.9, 3.3)
+	$AnimationPlayer.play(animation.front())
+	
+	yield($AnimationPlayer, 'animation_finished')
+	
+	yield(get_tree().create_timer(3.0), 'timeout')
 	
 	Game.transition_to(Game.GameState.MAIN_MENU)
