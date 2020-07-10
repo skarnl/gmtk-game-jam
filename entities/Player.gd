@@ -1,16 +1,22 @@
+extends KinematicBody2D
 
-extends Sprite
+const ACCELERATION = 1000
+const MAX_SPEED = 180
+const FRICTION = 1000
 
-func _ready():
-	pass
+var velocity = Vector2.ZERO
 	
-func _unhandled_input(event):
-	if event is InputEventKey:
-		if event.is_action_pressed("ui_left"):
-			position.x -= 10
-		elif event.is_action_pressed("ui_right"):
-			position.x += 10
-		elif event.is_action_pressed("ui_down"):
-			position.y += 10
-		elif event.is_action_pressed("ui_up"):
-			position.y -= 10
+func _physics_process(delta):
+	var input_vector = Vector2.ZERO
+	
+	input_vector.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	input_vector.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+	input_vector = input_vector.normalized()
+		
+	if input_vector != Vector2.ZERO:
+		velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta)
+		
+	else:
+		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+	
+	move_and_slide(velocity)
