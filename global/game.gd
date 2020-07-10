@@ -33,11 +33,12 @@ func start_game():
 func transition_to(new_state: int) -> void:
 	match new_state:
 		GameState.MAIN_MENU:
-			_current_state = new_state
-			SceneLoader.goto_scene(Screens.MAIN_MENU)
+			transition_to(GameState.GAME)
+#			_current_state = new_state
+#			SceneLoader.goto_scene(Screens.MAIN_MENU)
 		
 		GameState.GAME:
-			if _current_state in {GameState.MAIN_MENU: true}:
+			if _current_state in {GameState.SPLASH: true}:
 				_current_state = new_state
 				SceneLoader.goto_scene(Screens.GAME)
 				
@@ -98,7 +99,7 @@ func transition_to(new_state: int) -> void:
 # pause handler
 func _input(event):
 	if event is InputEventKey:
-		if event.pressed and event.scancode == KEY_ESCAPE:
+		if event.is_action_pressed('ui_pause'):
 			match _current_state:
 				GameState.GAME:
 					transition_to(GameState.PAUSED)
