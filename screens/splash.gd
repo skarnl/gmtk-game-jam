@@ -17,6 +17,7 @@ func _ready():
 	
 	yield($AnimationPlayer, 'animation_finished')
 	
-	yield(get_tree().create_timer(3.0), 'timeout')
+	if not OS.is_debug_build():
+		yield(get_tree().create_timer(2.3), 'timeout')
 	
 	Game.transition_to(Game.GameState.MAIN_MENU)
