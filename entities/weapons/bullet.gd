@@ -1,6 +1,9 @@
 extends Area2D
 
-const BULLET_SPEED = 3.6
+const BULLET_SPEED = 7
+
+func _ready():
+	add_to_group('spawned')
 
 func _physics_process(delta):
 	position += Vector2.RIGHT.rotated(rotation) * BULLET_SPEED
