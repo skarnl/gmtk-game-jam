@@ -29,11 +29,13 @@ func _ready():
 	
 	screen_size = get_viewport().size
 	
+	enemy_timer.wait_time = DEFAULT_ENEMY_SPAWN_TIME
 	enemy_timer.connect('timeout', self, '_on_EnemyTimer_timeout')
 	
 	player.connect('change_time_changed', self, '_on_Player_change_time_changed')
 	player.connect('debug', self, '_on_Player_debug')
 	
+	yield(get_tree(), 'idle_frame')
 	spawn_enemy()
 
 func _on_Player_debug(text):
