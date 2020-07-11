@@ -111,7 +111,7 @@ func _set_random_shooting_direction():
 	# kill tweens if any
 	tween.stop_all()
 		
-	tween.interpolate_property($WeaponPivot, 'rotation', $WeaponPivot.rotation, SHOOTING_DIRECTION.angle(), 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.interpolate_property($WeaponPivot, 'rotation', $WeaponPivot.rotation, SHOOTING_DIRECTION.angle(), 0.3, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	tween.interpolate_property($EyesSprite, 'position', $EyesSprite.position, _get_eye_position_by_direction(), 0.2, Tween.TRANS_QUAD, Tween.EASE_OUT)
 	tween.interpolate_callback(weapon, 0.25, 'set_direction', SHOOTING_DIRECTION)
 	
