@@ -8,7 +8,7 @@ const ACCELERATION = 1000
 const MAX_SPEED = 250
 const FRICTION = 1500
 const MIN_ATTACK_WAIT_TIME = 0.2
-const MAX_ATTACK_WAIT_TIME = 0.9
+const MAX_ATTACK_WAIT_TIME = 0.4
 
 export(String) var weapon_scene_path
 
@@ -84,13 +84,16 @@ func _physics_process(delta):
 	input_vector = input_vector.normalized()
 		
 	if input_vector != Vector2.ZERO:
-		velocity = input_vector * MAX_SPEED
+		$AnimationPlayer.play('walk')
+		velocity = input_vector * MAX_SPEED		
 		
 	else:
+		$AnimationPlayer.play('idle')
 		velocity = Vector2.ZERO
 	
 	move_and_slide(velocity)
 	_update_shooting_indicator()
+
 
 func _set_random_attack_time():
 	$AttackTimer.wait_time = rnd.randf_range(MIN_ATTACK_WAIT_TIME, MAX_ATTACK_WAIT_TIME)
@@ -109,12 +112,25 @@ func _set_random_shooting_direction():
 	tween.stop_all()
 		
 	tween.interpolate_property($WeaponPivot, 'rotation', $WeaponPivot.rotation, SHOOTING_DIRECTION.angle(), 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.interpolate_property($EyesSprite, 'position', $EyesSprite.position, _get_eye_position_by_direction(), 0.2, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.interpolate_callback(weapon, 0.25, 'set_direction', SHOOTING_DIRECTION)
+	
 	tween.start()
 	
 	yield(tween, 'tween_completed')
 	
 	changing = false
 
+func _get_eye_position_by_direction():
+	match SHOOTING_DIRECTION:
+		Vector2.UP: 
+			return Vector2(0, -5.2)
+		Vector2.RIGHT: 
+			return Vector2(1.4, -4)
+		Vector2.DOWN: 
+			return Vector2(0, -1.4)
+		Vector2.LEFT: 
+			return Vector2(-1.4, -4)
 
 func attack():
 	weapon.attack()
@@ -122,6 +138,7 @@ func attack():
 
 func reset():
 	position = Vector2(640, 400)
+	changing = false
 	_set_random_shooting_direction()
 	_set_random_attack_time()
 
