@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 signal debug
 signal change_time_changed
+signal shooting
 
 # TODO expose this when paused
 const ACCELERATION = 1000
@@ -134,6 +135,7 @@ func _get_eye_position_by_direction():
 
 func attack():
 	weapon.attack()
+	emit_signal('shooting')
 
 
 func reset():

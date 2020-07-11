@@ -34,6 +34,7 @@ func _ready():
 	
 	player.connect('change_time_changed', self, '_on_Player_change_time_changed')
 	player.connect('debug', self, '_on_Player_debug')
+	player.connect('shooting', self, '_on_Player_shooting')
 	
 	yield(get_tree(), 'idle_frame')
 	spawn_enemy()
@@ -44,6 +45,10 @@ func _on_Player_debug(text):
 
 func _on_EnemyTimer_timeout():
 	spawn_enemy()
+	
+	
+func _on_Player_shooting():
+	$'../Camera2D'.add_trauma(0.2)
 	
 
 func spawn_enemy():
@@ -146,19 +151,24 @@ func _show_game_over():
 	$'../HUD/GameOver/PopupDialog'.popup()
 
 func _hide_game_over():
+	print("HIDE GAME OVER")
 	$'../HUD/GameOver/PopupDialog'.hide()
 
 func _show_paused_overlay():
 	print("show overlay")
 	pass
 
-func _unhandled_key_input(event):
-	if event.is_action_pressed('ui_paused'):
-		_change_state(STATES.PAUSED)
-	
-	if event.is_action_pressed('ui_restart'):
-		print("RESTART PRESSED")
-		_change_state(STATES.RESTART)
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.is_action_pressed('ui_pause'):
+			if _current_state == STATES.PAUSED:
+				_change_state(STATES.PLAY)
+			else:
+				_change_state(STATES.PAUSED)
+		
+		if event.is_action_pressed('ui_restart'):
+			print("RESTART PRESSED")
+			_change_state(STATES.RESTART)
 	
 	
 	

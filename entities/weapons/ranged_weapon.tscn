@@ -4,7 +4,7 @@
 [ext_resource path="res://entities/weapons/bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://entities/weapons/ranged_weapon.gd" type="Script" id=3]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "_setup"
 length = 0.1
 tracks/0/type = "value"
@@ -20,8 +20,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, -4 ) ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "shoot"
+[sub_resource type="Animation" id=2]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -47,8 +46,8 @@ centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "_setup"
-anims/_setup = SubResource( 2 )
-anims/shoot = SubResource( 1 )
+anims/_setup = SubResource( 1 )
+anims/shoot = SubResource( 2 )
 
 [node name="BulletSpawnPosition" type="Node2D" parent="."]
 position = Vector2( 12.4628, -0.618721 )
