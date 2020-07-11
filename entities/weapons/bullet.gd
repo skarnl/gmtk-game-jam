@@ -1,10 +1,9 @@
-extends KinematicBody2D
-class_name Bullet
+extends Area2D
 
 const BULLET_SPEED = 3.6
 
 func _physics_process(delta):
-	move_and_collide(Vector2.RIGHT.rotated(rotation) * BULLET_SPEED)
+	position += Vector2.RIGHT.rotated(rotation) * BULLET_SPEED
 
 
 # remove when out of screen

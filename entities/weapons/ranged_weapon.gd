@@ -9,7 +9,7 @@ func _ready():
 	world = nodes.front()
 
 func attack():
-	var bullet = bulletReference.instance() as Bullet
+	var bullet = bulletReference.instance()
 	bullet.rotation = get_parent().get_parent().rotation
 	bullet.position = $BulletSpawnPosition.global_position
 	world.add_child(bullet)
