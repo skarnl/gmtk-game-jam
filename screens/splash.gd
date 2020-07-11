@@ -1,16 +1,19 @@
 extends Node2D
 
+var rng 
 
 func _ready():
 	if OS.is_debug_build():
 		Game.transition_to(Game.GameState.MAIN_MENU)
+		pass
 	
-	var rng = RandomNumberGenerator.new()
+	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
 	randomize()
 	
 	$ColorRect.color = Color8(rng.randi_range(0, 100), rng.randi_range(0, 100), rng.randi_range(0, 100))
+	_tween_color()
 	
 	var animation = ['intro', 'intro_alternative']
 	animation.shuffle()
@@ -24,3 +27,14 @@ func _ready():
 		yield(get_tree().create_timer(2.3), 'timeout')
 	
 	Game.transition_to(Game.GameState.MAIN_MENU)
+
+func _tween_color():
+	var target_color = Color8(rng.randi_range(0, 100), rng.randi_range(0, 100), rng.randi_range(0, 100))
+
+	$Tween.interpolate_property($ColorRect, 'color', $ColorRect.color, target_color, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	$Tween.start()
+	
+	yield($Tween, 'tween_completed')
+	
+	_tween_color()
+	
