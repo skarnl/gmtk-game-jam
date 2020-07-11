@@ -6,9 +6,9 @@ signal change_time_changed
 # TODO expose this when paused
 const ACCELERATION = 1000
 const MAX_SPEED = 250
-const FRICTION = 1000
-const MIN_ATTACK_WAIT_TIME = 0.3
-const MAX_ATTACK_WAIT_TIME = 1.3
+const FRICTION = 1500
+const MIN_ATTACK_WAIT_TIME = 0.2
+const MAX_ATTACK_WAIT_TIME = 0.9
 
 export(String) var weapon_scene_path
 
@@ -30,12 +30,14 @@ func _ready():
 	
 	$AttackTimer.connect('timeout', self, '_on_AttackTimer_timeout')
 	$ChangeTimer.connect('timeout', self, '_on_ChangeTimer_timeout')
+	$UpdateTimer.connect('timeout', self, '_on_UpdateTimer_timeout')
 	
 	_init_weapon()
 	_randomize()
 	
 	$AttackTimer.start()
 	$ChangeTimer.start()
+	$UpdateTimer.start()
 
 func _init_weapon():
 	var weapon_instance = load(weapon_scene_path).instance()
@@ -58,10 +60,13 @@ func _on_AttackTimer_timeout():
 func _on_ChangeTimer_timeout():
 	_randomize()
 	
-func _update_hud():
-	$TimeLabel.text = str($AttackTimer.time_left)
+	
+func _update_shooting_indicator():
 	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
-	emit_signal('change_time_changed', $ChangeTimer.time_left)
+	
+func _on_UpdateTimer_timeout():
+	$TimeLabel.text = str(stepify($ChangeTimer.time_left, 0.01))
+#	emit_signal('change_time_changed', $ChangeTimer.time_left)
 	
 func _randomize():
 	changing = true
@@ -84,8 +89,7 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move_and_slide(velocity)
-	_update_hud()
-	
+	_update_shooting_indicator()
 
 func _set_random_attack_time():
 	$AttackTimer.wait_time = rnd.randf_range(MIN_ATTACK_WAIT_TIME, MAX_ATTACK_WAIT_TIME)
@@ -113,6 +117,12 @@ func _set_random_shooting_direction():
 
 func attack():
 	weapon.attack()
+
+
+func reset():
+	position = Vector2(640, 400)
+	_set_random_shooting_direction()
+	_set_random_attack_time()
 
 
 func _debug():

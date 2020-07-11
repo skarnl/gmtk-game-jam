@@ -1,10 +1,16 @@
 extends KinematicBody2D
 
+signal player_killed
+signal enemy_killed
+
 const WALKING_SPEED = 100 #RANDOMIZE
 
+var points_when_killed = 3
 var player_reference
 
 func _ready():
+	add_to_group('spawned')
+	
 	var nodes = get_tree().get_nodes_in_group('player')
 	player_reference = nodes.front()
 
@@ -19,13 +25,12 @@ func _physics_process(delta):
 
 #bullet
 func _on_Area2D_area_entered(area):
-	print(area)
+	emit_signal('enemy_killed')
+
 	queue_free()
 	area.queue_free()
+	
 
 #player
 func _on_Area2D_body_entered(body):
-	print(body)
-	
-	body.queue_free()
-	pass # Replace with function body.
+	emit_signal('player_killed')

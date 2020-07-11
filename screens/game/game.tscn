@@ -4,16 +4,22 @@
 [ext_resource path="res://screens/game/game.gd" type="Script" id=2]
 [ext_resource path="res://gui/hud.tscn" type="PackedScene" id=3]
 
-[node name="Game" type="Node2D" groups=[
+[node name="World" type="Node2D" groups=[
 "world",
 ]]
+
+[node name="GameLogic" type="Node2D" parent="."]
+pause_mode = 2
 script = ExtResource( 2 )
 
 [node name="HUD" parent="." instance=ExtResource( 3 )]
+pause_mode = 2
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
 position = Vector2( 640, 400 )
 
 [node name="EnemyTimer" type="Timer" parent="."]
+pause_mode = 1
 wait_time = 3.0
 autostart = true

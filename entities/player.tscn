@@ -48,7 +48,6 @@ __meta__ = {
 wait_time = 5.0
 
 [node name="TimeLabel" type="Label" parent="."]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -64,3 +63,6 @@ __meta__ = {
 }
 
 [node name="RotationTween" type="Tween" parent="."]
+
+[node name="UpdateTimer" type="Timer" parent="."]
+wait_time = 0.1

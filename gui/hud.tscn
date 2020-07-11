@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gui/timers.gd" type="Script" id=1]
 [ext_resource path="res://gui/pause.gd" type="Script" id=2]
 [ext_resource path="res://gui/debug.gd" type="Script" id=3]
+[ext_resource path="res://gui/score.gd" type="Script" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -49,6 +50,7 @@ __meta__ = {
 }
 
 [node name="Timers" type="Control" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -20.0
@@ -79,7 +81,7 @@ margin_left = -91.3337
 margin_top = 15.8949
 margin_right = 0.666321
 margin_bottom = 29.8949
-rect_scale = Vector2( 2, 2 )
+rect_scale = Vector2( 2.2, 2.2 )
 text = "23.21"
 align = 1
 __meta__ = {
@@ -98,3 +100,58 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Score" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="score_text" type="Label" parent="Score"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -91.4088
+margin_top = 12.3595
+margin_right = -11.4088
+margin_bottom = 26.3595
+text = "0000000000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameOver" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupDialog" type="PopupDialog" parent="GameOver"]
+visible = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.5
+margin_top = -102.5
+margin_right = 200.5
+margin_bottom = 102.5
+
+[node name="Label" type="Label" parent="GameOver/PopupDialog"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -55.0
+margin_top = -24.0
+margin_right = 55.0
+margin_bottom = 24.0
+text = "GAME OVER
+
+press R to restart"
+align = 1
