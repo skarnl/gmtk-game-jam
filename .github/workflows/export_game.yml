@@ -24,7 +24,7 @@ jobs:
 
     - name: export game
       # Use latest version (see releases for all versions)
-      uses: firebelley/godot-export@v2.1.0
+      uses: firebelley/godot-export@v2.2.0
       with:
         # Defining all the required inputs
         godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux_headless.64.zip
@@ -33,4 +33,3 @@ jobs:
         base_version: 0.1.0
       env:
         GITHUB_TOKEN: ${{ secrets.EXPORT_GITHUB_TOKEN }}
-
