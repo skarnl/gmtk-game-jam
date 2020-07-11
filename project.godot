@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BaseWeapon",
 "language": "GDScript",
-"path": "res://entities/xweapons/base_weapon.gd"
+"path": "res://entities/weapons/base_weapon.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Bullet",
 "language": "GDScript",
-"path": "res://entities/xweapons/bullet.gd"
+"path": "res://entities/weapons/bullet.gd"
 } ]
 _global_script_class_icons={
 "BaseWeapon": "",
