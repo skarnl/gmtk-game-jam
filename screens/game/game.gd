@@ -57,7 +57,7 @@ func spawn_enemy():
 	enemy.position = enemy_position
 	
 	enemy.connect('enemy_killed', self, '_on_enemy_killed', [enemy])
-	enemy.connect('player_killed', self, '_on_player_killed')
+	enemy.connect('player_hit', self, '_on_player_hit')
 	
 	get_parent().add_child(enemy)
 
@@ -70,8 +70,13 @@ func _on_enemy_killed(enemy):
 	_update_enemies_killed()
 	_update_score(enemy.points_when_killed)
 	_increase_difficulty()
+	
+	yield(get_tree().create_timer(1.2), 'timeout')
+	spawn_enemy()
 
-func _on_player_killed():
+func _on_player_hit():
+	# TODO calculate health?
+	
 	_change_state(STATES.GAME_OVER)
 	
 	
