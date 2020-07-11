@@ -33,6 +33,7 @@ shape = SubResource( 1 )
 [node name="WeaponSpawnPoint" type="Node2D" parent="WeaponPivot"]
 
 [node name="ShootIndicator" type="TextureProgress" parent="WeaponPivot"]
+visible = false
 margin_left = 17.0
 margin_top = -28.7355
 margin_right = 129.0
@@ -43,6 +44,12 @@ texture_progress = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Sprite" type="Sprite" parent="WeaponPivot"]
+position = Vector2( 40, 0.6 )
+rotation = 3.14159
+scale = Vector2( 0.4, 0.2 )
+texture = ExtResource( 3 )
 
 [node name="ChangeTimer" type="Timer" parent="."]
 wait_time = 5.0

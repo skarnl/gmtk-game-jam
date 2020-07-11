@@ -62,7 +62,8 @@ func _on_ChangeTimer_timeout():
 	
 	
 func _update_shooting_indicator():
-	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
+#	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
+	pass
 	
 func _on_UpdateTimer_timeout():
 	$TimeLabel.text = str(stepify($ChangeTimer.time_left, 0.01))
