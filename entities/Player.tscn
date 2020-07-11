@@ -8,8 +8,8 @@ radius = 15.4245
 height = 3.48083
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 489, 241 )
 script = ExtResource( 2 )
+weapon_scene_path = "res://entities/Weapons/RangedWeapon.tscn"
 
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( 0, 0.0992432 )
@@ -18,3 +18,9 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+
+[node name="WeaponSpawnPoint" type="Node2D" parent="WeaponPivot"]

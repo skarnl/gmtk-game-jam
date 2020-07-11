@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "BaseWeapon",
+"language": "GDScript",
+"path": "res://entities/Weapons/BaseWeapon.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Bullet",
+"language": "GDScript",
+"path": "res://entities/Weapons/Bullet.gd"
+} ]
 _global_script_class_icons={
-
+"BaseWeapon": "",
+"Bullet": ""
 }
 
 [application]
@@ -40,6 +51,13 @@ ui_pause={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="player"
+2d_physics/layer_3="bullets"
+2d_physics/layer_4="enemies"
 
 [rendering]
 
