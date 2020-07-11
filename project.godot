@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BaseWeapon",
 "language": "GDScript",
-"path": "res://entities/weapons/base_weapon.gd"
+"path": "res://entities/xweapons/base_weapon.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "Bullet",
 "language": "GDScript",
-"path": "res://entities/weapons/bullet.gd"
+"path": "res://entities/xweapons/bullet.gd"
 } ]
 _global_script_class_icons={
 "BaseWeapon": "",
@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GMTK Game Jam 2020"
-run/main_scene="res://screens/splash.tscn"
+run/main_scene="res://screens/game/game.tscn"
 config/icon="res://assets/images/icon.png"
 
 [autoload]
@@ -61,5 +61,4 @@ ui_pause={
 
 [rendering]
 
-quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"
