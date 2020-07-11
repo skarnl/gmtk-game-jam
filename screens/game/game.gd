@@ -12,6 +12,7 @@ const DEFAULT_ENEMY_SPAWN_TIME = 3
 const ENEMY_DIFFICULTY_RATIO = 0.97
 
 var _score = 0
+var _enemies_killed = 0
 
 enum STATES {
 	PLAY,
@@ -40,7 +41,6 @@ func _on_Player_debug(text):
 	$'../HUD/Debug'.set_text(text)	
 
 func _on_EnemyTimer_timeout():
-	#TODO check hoeveel enemies we hier al hebben
 	spawn_enemy()
 	
 
@@ -50,11 +50,7 @@ func spawn_enemy():
 	var enemy_position = player_position
 	
 	while enemy_position.distance_to(player_position) < 150:
-		print("pre distance = ", enemy_position.distance_to(player_position))
-	
 		enemy_position = Vector2(rnd.randf_range(0, screen_size.x), rnd.randf_range(0, screen_size.y))
-	
-	print("post distance = ", enemy_position.distance_to(player_position))
 	
 	enemy.position = enemy_position
 	
@@ -68,6 +64,8 @@ func _on_Player_change_time_changed(time_left):
 	$'../HUD/Timers'.update_change_time(time_left)
 
 func _on_enemy_killed(enemy):
+	_enemies_killed += 1
+	_update_enemies_killed()
 	_update_score(enemy.points_when_killed)
 	_increase_difficulty()
 
@@ -78,12 +76,16 @@ func _on_player_killed():
 func _increase_difficulty():
 	enemy_timer.wait_time *= ENEMY_DIFFICULTY_RATIO 
 	
+func _update_enemies_killed():
+	$'../HUD/Score'.set_enemies_killed(_enemies_killed)
+	
 func _update_score(amount):
-	_score += amount
+	_score += stepify(amount, 0.01) * 100
 	$'../HUD/Score'.set_score(_score)
 	
 func reset():
 	_score = 0
+	_enemies_killed = 0
 	$'../HUD/Score'.reset()
 	player.reset()
 	_hide_game_over()
@@ -144,10 +146,6 @@ func _show_paused_overlay():
 	pass
 
 func _unhandled_key_input(event):
-	print("unhandled key input")
-	
-	print(event)
-	
 	if event.is_action_pressed('ui_paused'):
 		_change_state(STATES.PAUSED)
 	
