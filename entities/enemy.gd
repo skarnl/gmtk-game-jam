@@ -15,3 +15,17 @@ func _physics_process(delta):
 	var motion = (player_reference.get_global_position() - global_position)
 	move_and_slide(motion.normalized() * WALKING_SPEED)
 	look_at(player_reference.position)
+
+
+#bullet
+func _on_Area2D_area_entered(area):
+	print(area)
+	queue_free()
+	area.queue_free()
+
+#player
+func _on_Area2D_body_entered(body):
+	print(body)
+	
+	body.queue_free()
+	pass # Replace with function body.

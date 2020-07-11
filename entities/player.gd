@@ -61,9 +61,6 @@ func _on_ChangeTimer_timeout():
 	
 func _on_UpdateTimer_timeout():
 	$TimeLabel.text = str($AttackTimer.time_left)
-	
-	print($AttackTimer.time_left / $AttackTimer.wait_time)
-	
 	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
 	
 func _randomize():
