@@ -33,7 +33,10 @@ func _physics_process(delta):
 		
 	var motion = (player_reference.get_global_position() - global_position)
 	move_and_slide(motion.normalized() * movement_speed)
-	look_at(player_reference.position)
+	
+	$Sprite.flip_h = motion.normalized().x > 0
+	
+#	look_at(player_reference.position)
 
 
 #bullet

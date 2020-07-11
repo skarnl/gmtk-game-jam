@@ -1,34 +1,53 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/images/icon.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/enemy-walk.png" type="Texture" id=1]
 [ext_resource path="res://entities/enemy.gd" type="Script" id=2]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 31.7547
+[sub_resource type="Animation" id=1]
+resource_name = "walk"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 5 ]
+}
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 32.0237
+radius = 1.96219
 
 [node name="Enemy" type="KinematicBody2D" groups=[
 "enemies",
 ]]
-modulate = Color( 0.828125, 0.187622, 0.187622, 1 )
 collision_layer = 4
 collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 1 )
+hframes = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "walk"
+anims/walk = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+visible = false
+shape = SubResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+visible = false
+polygon = PoolVector2Array( -0.502693, -12.1874, 9.05404, -0.152988, 8.70008, 11.5275, -6.75586, 11.2915, -9.4695, 4.21243, -9.23353, -8.76584, -5.22206, -13.0133 )
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
