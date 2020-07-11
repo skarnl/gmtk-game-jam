@@ -1,10 +1,11 @@
 extends KinematicBody2D
 
 signal debug
+signal change_time_changed
 
 # TODO expose this when paused
 const ACCELERATION = 1000
-const MAX_SPEED = 180
+const MAX_SPEED = 250
 const FRICTION = 1000
 const MIN_ATTACK_WAIT_TIME = 0.3
 const MAX_ATTACK_WAIT_TIME = 1.3
@@ -29,14 +30,12 @@ func _ready():
 	
 	$AttackTimer.connect('timeout', self, '_on_AttackTimer_timeout')
 	$ChangeTimer.connect('timeout', self, '_on_ChangeTimer_timeout')
-#	$UpdateTimer.connect('timeout', self, '_on_UpdateTimer_timeout')
 	
 	_init_weapon()
 	_randomize()
 	
 	$AttackTimer.start()
 	$ChangeTimer.start()
-	$UpdateTimer.start()
 
 func _init_weapon():
 	var weapon_instance = load(weapon_scene_path).instance()
@@ -59,9 +58,10 @@ func _on_AttackTimer_timeout():
 func _on_ChangeTimer_timeout():
 	_randomize()
 	
-func _on_UpdateTimer_timeout():
+func _update_hud():
 	$TimeLabel.text = str($AttackTimer.time_left)
 	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
+	emit_signal('change_time_changed', $ChangeTimer.time_left)
 	
 func _randomize():
 	changing = true
@@ -84,7 +84,7 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move_and_slide(velocity)
-	_on_UpdateTimer_timeout()
+	_update_hud()
 	
 
 func _set_random_attack_time():

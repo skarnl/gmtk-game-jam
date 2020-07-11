@@ -12,6 +12,8 @@ func _ready():
 	screen_size = get_viewport().size
 	
 	$EnemyTimer.connect('timeout', self, '_on_EnemyTimer_timeout')
+	
+	$Player.connect('change_time_changed', self, '_on_Player_change_time_changed')
 
 
 func _on_EnemyTimer_timeout():
@@ -27,3 +29,7 @@ func spawn_enemy():
 	print(enemy.position)
 	
 	add_child(enemy)
+
+
+func _on_Player_change_time_changed(time_left):
+	$HUD/Timers.update_change_time(time_left)

@@ -1,11 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://gui/timers.gd" type="Script" id=1]
 [ext_resource path="res://gui/pause.gd" type="Script" id=2]
 [ext_resource path="res://gui/debug.gd" type="Script" id=3]
-
-
-
-
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -47,6 +44,57 @@ __meta__ = {
 [node name="RichTextLabel" type="RichTextLabel" parent="Debug"]
 margin_right = 369.0
 margin_bottom = 161.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timers" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Timers"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -119.5
+margin_right = 119.5
+margin_bottom = 14.0
+text = "Change direction and attack speed in:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="update_time" type="Label" parent="Timers"]
+modulate = Color( 1, 0.560784, 0, 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -91.3337
+margin_top = 15.8949
+margin_right = 0.666321
+margin_bottom = 29.8949
+rect_scale = Vector2( 2, 2 )
+text = "23.21"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Timers"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -119.5
+margin_top = 43.3071
+margin_right = 119.5
+margin_bottom = 57.3071
+text = "sec"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
