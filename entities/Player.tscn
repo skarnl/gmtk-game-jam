@@ -7,7 +7,9 @@
 radius = 15.4245
 height = 3.48083
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"player",
+]]
 script = ExtResource( 2 )
 weapon_scene_path = "res://entities/Weapons/RangedWeapon.tscn"
 
@@ -24,3 +26,6 @@ shape = SubResource( 1 )
 [node name="WeaponPivot" type="Node2D" parent="."]
 
 [node name="WeaponSpawnPoint" type="Node2D" parent="WeaponPivot"]
+
+[node name="ChangeTimer" type="Timer" parent="."]
+wait_time = 2.5

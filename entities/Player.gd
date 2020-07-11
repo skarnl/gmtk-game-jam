@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal debug
+
 # TODO expose this when paused
 const ACCELERATION = 1000
 const MAX_SPEED = 180
@@ -23,11 +25,15 @@ func _ready():
 	rnd = RandomNumberGenerator.new()
 	rnd.randomize()
 	
-	$AttackTimer.connect('timeout', self, '_on_Timer_timeout')
+	$AttackTimer.connect('timeout', self, '_on_AttackTimer_timeout')
+	$ChangeTimer.connect('timeout', self, '_on_ChangeTimer_timeout')
 	
 	_init_weapon()
-	_set_random_shooting_direction()
-	_start_timer()
+	_randomize()
+	
+	$AttackTimer.start()
+	$ChangeTimer.start()
+	
 
 func _init_weapon():
 	var weapon_instance = load(weapon_scene_path).instance()
@@ -40,9 +46,18 @@ func _init_weapon():
 #	weapon.connect("attack_finished", self, "_on_Weapon_attack_finished")
 
 
-func _on_Timer_timeout():
+func _on_AttackTimer_timeout():
 	attack()
 	
+	
+func _on_ChangeTimer_timeout():
+	_randomize()
+	
+	
+func _randomize():
+	_set_random_shooting_direction()
+	_set_random_attack_time()
+	_debug()
 	
 func _physics_process(delta):
 	var input_vector = Vector2.ZERO
@@ -58,17 +73,12 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move_and_slide(velocity)
-
-	$WeaponPivot/WeaponSpawnPoint.look_at(get_global_mouse_position())
+	
+	$WeaponPivot/WeaponSpawnPoint.rotation = SHOOTING_DIRECTION.angle()
 	
 
-func _start_timer():
+func _set_random_attack_time():
 	$AttackTimer.wait_time = rnd.randf_range(MIN_ATTACK_WAIT_TIME, MAX_ATTACK_WAIT_TIME)
-	
-	$AttackTimer.wait_time = 0.1	
-	print("wait time = ", $AttackTimer.wait_time)
-	
-	$AttackTimer.start()
 
 
 func _set_random_shooting_direction():
@@ -77,8 +87,24 @@ func _set_random_shooting_direction():
 	directions.shuffle()
 	
 	SHOOTING_DIRECTION = directions.front()
-	
-	
+
 
 func attack():
 	weapon.attack()
+
+
+func _debug():
+	var direction
+	
+	match SHOOTING_DIRECTION:
+		Vector2.UP: 
+			direction = 'UP'
+		Vector2.RIGHT: 
+			direction = 'RIGHT'
+		Vector2.DOWN: 
+			direction = 'DOWN'
+		Vector2.LEFT: 
+			direction = 'LEFT'
+
+	var debug_text = '$AttackTimer.wait_time: %s\nSHOOTING_DIRECTION: %s' % [$AttackTimer.wait_time, direction]
+	emit_signal('debug', debug_text)

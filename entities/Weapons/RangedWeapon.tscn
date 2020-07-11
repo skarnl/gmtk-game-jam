@@ -17,3 +17,7 @@ texture = ExtResource( 2 )
 [node name="BulletSpawnPosition" type="Node2D" parent="."]
 position = Vector2( 18.5616, -0.0883904 )
 rotation = -0.00166501
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+modulate = Color( 0.215686, 0.862745, 0.360784, 1 )
+rotation = -1.5708
