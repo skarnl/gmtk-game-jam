@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-signal player_killed
+signal player_hit
 signal enemy_killed
 
 const BASE_WALKING_SPEED = 100 #RANDOMIZE
@@ -39,14 +39,29 @@ func _physics_process(delta):
 #	look_at(player_reference.position)
 
 
+func _disable_collisions():
+	$CollisionShape2D.disabled = true
+	$Area2D/CollisionPolygon2D.disabled = true
+
+
 #bullet
 func _on_Area2D_area_entered(area):
+	set_physics_process(false)
+	call_deferred('_disable_collisions')
 	emit_signal('enemy_killed')
 
-	queue_free()
 	area.queue_free()
+	
+	$AnimationPlayer.play('die')
+	
+	yield($AnimationPlayer, 'animation_finished')
+	
+	queue_free()
 	
 
 #player
 func _on_Area2D_body_entered(body):
-	emit_signal('player_killed')
+	set_physics_process(false)
+	call_deferred('_disable_collisions')
+	
+	emit_signal('player_hit')
