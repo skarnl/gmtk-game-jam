@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Bullet
 
-const BULLET_SPEED = 1.6
+const BULLET_SPEED = 3.6
 
 func _physics_process(delta):
 	move_and_collide(Vector2.RIGHT.rotated(rotation) * BULLET_SPEED)

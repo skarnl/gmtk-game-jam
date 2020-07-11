@@ -6,8 +6,8 @@ signal debug
 const ACCELERATION = 1000
 const MAX_SPEED = 180
 const FRICTION = 1000
-const MIN_ATTACK_WAIT_TIME = 0.5
-const MAX_ATTACK_WAIT_TIME = 7
+const MIN_ATTACK_WAIT_TIME = 0.3
+const MAX_ATTACK_WAIT_TIME = 1.3
 
 export(String) var weapon_scene_path
 
@@ -21,19 +21,22 @@ var weapon_path
 
 var rnd
 
+var changing = false
+
 func _ready():
 	rnd = RandomNumberGenerator.new()
 	rnd.randomize()
 	
 	$AttackTimer.connect('timeout', self, '_on_AttackTimer_timeout')
 	$ChangeTimer.connect('timeout', self, '_on_ChangeTimer_timeout')
+#	$UpdateTimer.connect('timeout', self, '_on_UpdateTimer_timeout')
 	
 	_init_weapon()
 	_randomize()
 	
 	$AttackTimer.start()
 	$ChangeTimer.start()
-	
+	$UpdateTimer.start()
 
 func _init_weapon():
 	var weapon_instance = load(weapon_scene_path).instance()
@@ -47,14 +50,25 @@ func _init_weapon():
 
 
 func _on_AttackTimer_timeout():
+	if changing:
+		return
+		
 	attack()
 	
 	
 func _on_ChangeTimer_timeout():
 	_randomize()
 	
+func _on_UpdateTimer_timeout():
+	$TimeLabel.text = str($AttackTimer.time_left)
+	
+	print($AttackTimer.time_left / $AttackTimer.wait_time)
+	
+	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
 	
 func _randomize():
+	changing = true
+	
 	_set_random_shooting_direction()
 	_set_random_attack_time()
 	_debug()
@@ -73,8 +87,7 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
 	
 	move_and_slide(velocity)
-	
-	$WeaponPivot/WeaponSpawnPoint.rotation = SHOOTING_DIRECTION.angle()
+	_on_UpdateTimer_timeout()
 	
 
 func _set_random_attack_time():
@@ -87,6 +100,18 @@ func _set_random_shooting_direction():
 	directions.shuffle()
 	
 	SHOOTING_DIRECTION = directions.front()
+
+	var tween = $RotationTween
+	
+	# kill tweens if any
+	tween.stop_all()
+		
+	tween.interpolate_property($WeaponPivot, 'rotation', $WeaponPivot.rotation, SHOOTING_DIRECTION.angle(), 0.5, Tween.TRANS_QUAD, Tween.EASE_OUT)
+	tween.start()
+	
+	yield(tween, 'tween_completed')
+	
+	changing = false
 
 
 func attack():
@@ -106,5 +131,9 @@ func _debug():
 		Vector2.LEFT: 
 			direction = 'LEFT'
 
-	var debug_text = '$AttackTimer.wait_time: %s\nSHOOTING_DIRECTION: %s' % [$AttackTimer.wait_time, direction]
+	var debug_text = '$AttackTimer.wait_time: %s\n' % $AttackTimer.wait_time
+	debug_text += '$ChangeTimer.wait_time: %s\n' % $ChangeTimer.wait_time
+	debug_text += 'SHOOTING_DIRECTION: %s\n' % direction
+	
+	
 	emit_signal('debug', debug_text)
