@@ -99,10 +99,12 @@ func _physics_process(delta):
 
 
 func _set_random_attack_time():
-	$AttackTimer.wait_time = rnd.randf_range(MIN_ATTACK_WAIT_TIME, MAX_ATTACK_WAIT_TIME)
+	$AttackTimer.stop()
+	$AttackTimer.start(rnd.randf_range(MIN_ATTACK_WAIT_TIME, MAX_ATTACK_WAIT_TIME))
 
 func _set_random_change_time():
-	$ChangeTimer.wait_time = rnd.randf_range(MIN_CHANGE_TIME, MAX_CHANGE_TIME)
+	$ChangeTimer.stop()
+	$ChangeTimer.start(rnd.randf_range(MIN_CHANGE_TIME, MAX_CHANGE_TIME))
 
 
 func _set_random_shooting_direction():
@@ -150,6 +152,8 @@ func reset():
 	_set_random_shooting_direction()
 	_set_random_attack_time()
 	_set_random_change_time()
+	
+	
 	
 	_debug()
 

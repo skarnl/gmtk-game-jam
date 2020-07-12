@@ -23,9 +23,6 @@ func _ready():
 	
 	movement_speed = BASE_WALKING_SPEED + rnd.randf_range(-30, 100)
 	points_when_killed = max(1, BASE_POINTS_WHEN_KILLED + (movement_speed - 100) * MOVEMENT_SPEED_POINTS_RATIO)
-	
-	print("movement_speed = ", movement_speed)
-	print("points_when_killed = ", points_when_killed)
 
 func _physics_process(delta):
 	if not player_reference:
