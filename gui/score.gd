@@ -9,7 +9,7 @@ func set_enemies_killed(number):
 
 
 func set_score(score):
-	$score_text.text = str(score)
+	$score_text.text = 'Score: %s' % str(score)
 
 func reset():
 	set_score(0)
