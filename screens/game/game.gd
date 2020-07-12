@@ -82,7 +82,7 @@ func spawn_enemy():
 	enemy.connect('enemy_killed', self, '_on_enemy_killed', [enemy])
 	enemy.connect('player_hit', self, '_on_player_hit')
 	
-	get_parent().add_child(enemy)
+	get_parent().call_deferred('add_child', enemy)
 
 
 func _on_Player_change_time_changed(time_left):
@@ -104,8 +104,6 @@ func _on_enemy_killed(enemy):
 	spawn_enemy()
 
 func _on_player_hit():
-	# TODO calculate health?
-	
 	_change_state(STATES.GAME_OVER)
 	
 	
@@ -116,7 +114,7 @@ func _update_enemies_killed():
 	$'../HUD/Score'.set_enemies_killed(_enemies_killed)
 	
 func _update_score(amount):
-	_score += stepify(amount, 0.01) * 100
+	_score += amount
 	$'../HUD/Score'.set_score(_score)
 	
 func reset():
@@ -202,10 +200,14 @@ func _hide_paused_overlay():
 	
 	
 func _get_global_information():
+	var enemy_nodes = get_tree().get_nodes_in_group('enemies')
+	
 	var text = 'score: %s\n' % _score
 	text += 'enemies killed: %s\n' % _enemies_killed
 	text += 'times restarted: %s\n' % restart_count
 	text += 'enemy spawn rate: %.2f\n' % enemy_timer.wait_time
+	text += 'enemies alive: %s\n' % enemy_nodes.size()
+	text += 'enemies spawned %s\n' % str(_enemies_killed + enemy_nodes.size())
 	
 	return text
 

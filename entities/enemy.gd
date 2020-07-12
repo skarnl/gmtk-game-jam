@@ -10,6 +10,8 @@ const MOVEMENT_SPEED_POINTS_RATIO = 0.1
 var points_when_killed
 var player_reference
 
+var points = preload('res://gui/points.tscn')
+
 var movement_speed
 
 func _ready():
@@ -60,9 +62,12 @@ func get_information():
 func _on_Area2D_area_entered(area):
 	set_physics_process(false)
 	call_deferred('_disable_collisions')
+	
+	remove_from_group('enemies')
+	
 	emit_signal('enemy_killed')
 
-#	area.queue_free()
+	_spawn_points()
 	
 	$AnimationPlayer.play('die')
 	$DeathSound.play()
@@ -71,6 +76,11 @@ func _on_Area2D_area_entered(area):
 	
 	queue_free()
 	
+func _spawn_points():
+	var points_instance = points.instance()
+	points_instance.text = str(points_when_killed)
+	
+	add_child(points_instance)
 
 #player
 func _on_Area2D_body_entered(body):
