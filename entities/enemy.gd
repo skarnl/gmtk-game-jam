@@ -50,7 +50,7 @@ func _on_Area2D_area_entered(area):
 	call_deferred('_disable_collisions')
 	emit_signal('enemy_killed')
 
-	area.queue_free()
+#	area.queue_free()
 	
 	$AnimationPlayer.play('die')
 	$DeathSound.play()
