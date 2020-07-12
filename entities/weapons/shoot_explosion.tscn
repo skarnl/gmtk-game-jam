@@ -36,5 +36,6 @@ anims/explode = SubResource( 1 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource( 2 )
+volume_db = -10.0
 pitch_scale = 0.68
 autoplay = true
