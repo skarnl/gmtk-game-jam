@@ -13,6 +13,7 @@ const ENEMY_DIFFICULTY_RATIO = 0.97
 
 var _score = 0
 var _enemies_killed = 0
+var restart_count = 0
 
 enum STATES {
 	PLAY,
@@ -35,6 +36,8 @@ func _ready():
 	player.connect('change_time_changed', self, '_on_Player_change_time_changed')
 	player.connect('debug', self, '_on_Player_debug')
 	player.connect('shooting', self, '_on_Player_shooting')
+	
+	$'../HUD/GameOver'.hide()
 	
 	yield(get_tree(), 'idle_frame')
 	spawn_enemy()
@@ -98,6 +101,7 @@ func _update_score(amount):
 func reset():
 	_score = 0
 	_enemies_killed = 0
+	restart_count += 1
 	$'../HUD/Score'.reset()
 	player.reset()
 	_hide_game_over()
@@ -150,11 +154,38 @@ func _change_state(new_state):
 
 func _show_game_over():
 	$PlayerDie.play()
-	$'../HUD/GameOver/PopupDialog'.popup()
+	$'../HUD/GameOver/text'.text = _get_random_encouragement()
+	$'../HUD/GameOver'.show()
 
 func _hide_game_over():
 	print("HIDE GAME OVER")
-	$'../HUD/GameOver/PopupDialog'.hide()
+	$'../HUD/GameOver'.hide()
+
+
+func _get_random_encouragement():
+	if restart_count == 0:
+		return 'awww, you got hit. Don\'t worry, we\'ve all been there. Just try again. You\'ll get the hang of it'
+	else:
+		var sentences = [
+			'common, is this the best you can do?', 
+			'let\'s try that again', 
+			'wow, they came out of nowhere', 
+			'OMG! This is Out of Control (pun intended)',
+			'next time try to avoid the red blobbly thingies',
+			'one more try?',
+			'i know you can do it! come on!',
+			'let\'s forget about this mistake and try again, shall we?',
+			'more after the break',
+			'no need to cry, we all make mistakes',
+			'not sure what happend there',
+			'uhm ... you know you have to avoid the monsters, right?',
+			'well, let\'s never talk about this misstep',
+			'you almost dodged them! ... almost',
+			'ok ... white thing is you, red thing is bad',
+			]
+		randomize()
+		sentences.shuffle()
+		return sentences.front()
 
 func _show_paused_overlay():
 	print("show overlay")
