@@ -193,12 +193,21 @@ func _hide_game_over():
 
 
 func _show_paused_overlay():
+	$'../HUD/Pause'.set_global_information(_get_global_information())
 	$'../HUD/Pause'.show()
 	
 	
 func _hide_paused_overlay():
 	$'../HUD/Pause'.hide()
 	
+	
+func _get_global_information():
+	var text = 'score: %s\n' % _score
+	text += 'enemies killed: %s\n' % _enemies_killed
+	text += 'times restarted: %s\n' % restart_count
+	text += 'enemy spawn rate: %.2f\n' % enemy_timer.wait_time
+	
+	return text
 
 func _unhandled_input(event):
 	if event is InputEventKey:

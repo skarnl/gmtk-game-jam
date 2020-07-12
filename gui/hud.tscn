@@ -231,12 +231,14 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Pause"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 margin_left = -27.5
-margin_top = -10.5
 margin_right = 27.5
-margin_bottom = 10.5
+margin_bottom = 21.0
 text = "PAUSE"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="labels" type="Node2D" parent="Pause"]

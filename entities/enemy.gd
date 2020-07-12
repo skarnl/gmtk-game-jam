@@ -22,7 +22,7 @@ func _ready():
 	player_reference = nodes.front()
 	
 	movement_speed = BASE_WALKING_SPEED + rnd.randf_range(-30, 100)
-	points_when_killed = max(1, BASE_POINTS_WHEN_KILLED + (movement_speed - 100) * MOVEMENT_SPEED_POINTS_RATIO)
+	points_when_killed = stepify(max(1, BASE_POINTS_WHEN_KILLED + (movement_speed - 100) * MOVEMENT_SPEED_POINTS_RATIO), 0.01) * 100
 
 func _physics_process(delta):
 	if not player_reference:
@@ -47,6 +47,13 @@ func _physics_process(delta):
 func _disable_collisions():
 	$CollisionShape2D.disabled = true
 	$Area2D/CollisionPolygon2D.disabled = true
+
+
+func get_information():
+	var text = 'points_when_killed: %s\n' % points_when_killed
+	text += 'movement_speed: %s\n' % movement_speed
+	
+	return text
 
 
 #bullet

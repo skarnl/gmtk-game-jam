@@ -153,15 +153,11 @@ func reset():
 	_set_random_attack_time()
 	_set_random_change_time()
 	
-	
-	
 	_debug()
 
 
-func _debug():
-	if not OS.is_debug_build():
-		return
-	
+
+func get_information():
 	var direction
 	
 	match SHOOTING_DIRECTION:
@@ -173,10 +169,20 @@ func _debug():
 			direction = 'DOWN'
 		Vector2.LEFT: 
 			direction = 'LEFT'
-
-	var debug_text = '$AttackTimer.wait_time: %s\n' % $AttackTimer.wait_time
-	debug_text += '$ChangeTimer.wait_time: %s\n' % $ChangeTimer.wait_time
-	debug_text += 'SHOOTING_DIRECTION: %s\n' % direction
 	
+	var text = 'shoot time: %.2f\n' % $AttackTimer.wait_time
+	text += 'shoot time left: %.2f\n' % $AttackTimer.time_left
+	text += 'change time: %.2f\n' % $ChangeTimer.wait_time
+	text += 'change time left: %.2f\n' % $ChangeTimer.time_left
+	text += 'direction: %s\n' % direction
+	
+	return text
+
+
+func _debug():
+	if not OS.is_debug_build():
+		return
+	
+	var debug_text = get_information()	
 	
 	emit_signal('debug', debug_text)
