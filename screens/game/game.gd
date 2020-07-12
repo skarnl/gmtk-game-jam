@@ -40,6 +40,9 @@ func _ready():
 	$'../HUD/GameOver'.hide()
 	
 	yield(get_tree(), 'idle_frame')
+	
+	$'../explanation'.show()
+	
 	spawn_enemy()
 
 func _on_Player_debug(text):
@@ -105,17 +108,23 @@ func reset():
 	$'../HUD/Score'.reset()
 	player.reset()
 	_hide_game_over()
+	$'../explanation'.reset()
 	
 	var allSpawnedEntities = get_tree().get_nodes_in_group('spawned')
 	for entity in allSpawnedEntities:
 		entity.queue_free()
 		
 	enemy_timer.stop()
+	
+	if restart_count < 5:
+		$'../explanation'.show()
 		
 	yield(get_tree(), 'idle_frame')
 	
 	enemy_timer.wait_time = DEFAULT_ENEMY_SPAWN_TIME
 	enemy_timer.start()
+	
+	yield(get_tree().create_timer(1), 'timeout')
 	spawn_enemy()
 	
 

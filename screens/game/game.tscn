@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://entities/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://screens/game/game.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://assets/sounds/player_die.wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/sounds/slow_down.ogg" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/RQ-DTB.ogg" type="AudioStream" id=8]
+[ext_resource path="res://gui/explanation.tscn" type="PackedScene" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 576 )
@@ -94,3 +95,5 @@ autostart = true
 position = Vector2( 512, 288 )
 current = true
 script = ExtResource( 5 )
+
+[node name="explanation" parent="." instance=ExtResource( 9 )]
