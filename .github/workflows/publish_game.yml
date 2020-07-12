@@ -5,8 +5,8 @@ on:
 
 
 env:
-  PROJECT_NAME: gmtk-game-jam-2020
-  ITCH_GAME: gmtk-game-jam-2020
+  PROJECT_NAME: forced-directions
+  ITCH_GAME: forced-directions
   ITCH_USER: skar
 
 
@@ -37,4 +37,3 @@ jobs:
           ITCH_USER: ${{ env.ITCH_USER }}
           PACKAGE: ${{ env.PROJECT_NAME }}--${{ matrix.platform }}.zip
           VERSION: ${{ steps.tagName.outputs.tag }}
-
