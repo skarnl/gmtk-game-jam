@@ -67,7 +67,7 @@ func _on_ChangeTimer_timeout():
 	
 func _on_UpdateTimer_timeout():
 	$TimeLabel.text = "%.1f" % $ChangeTimer.time_left
-	
+#	emit_signal('change_time_changed', $TimeLabel.text)
 	
 func _randomize():
 	changing = true
@@ -159,6 +159,9 @@ func reset():
 
 
 func _debug():
+	if not OS.is_debug_build():
+		return
+	
 	var direction
 	
 	match SHOOTING_DIRECTION:
