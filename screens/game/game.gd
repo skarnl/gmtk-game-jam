@@ -67,6 +67,9 @@ func _on_Player_shooting():
 	
 
 func spawn_enemy():
+	if _current_state == STATES.PAUSED:
+		return
+	
 	var enemy = enemy_ref.instance()
 	var player_position = player.global_position
 	var enemy_position = player_position
@@ -93,6 +96,7 @@ func _on_enemy_killed(enemy):
 	
 	if _enemies_killed == 1:
 		enemy_timer.start()
+		spawn_enemy()
 		
 	yield(get_tree().create_timer(1.2), 'timeout')
 	spawn_enemy()
@@ -136,6 +140,12 @@ func reset():
 	
 	enemy_timer.wait_time = DEFAULT_ENEMY_SPAWN_TIME
 	
+	
+func _spawn_enemy_if_needed():
+	var enemiesNodes = get_tree().get_nodes_in_group('enemies')
+	
+	if enemiesNodes.size() == 0:
+		spawn_enemy()
 
 func _set_paused(pause):
 	get_tree().paused = pause
@@ -151,6 +161,8 @@ func _change_state(new_state):
 			if _current_state == STATES.PAUSED:
 				_current_state = new_state
 				_set_paused(false)
+				_hide_paused_overlay()
+				_spawn_enemy_if_needed()
 		
 		STATES.GAME_OVER:
 			if _current_state == STATES.PLAY:
@@ -179,8 +191,12 @@ func _hide_game_over():
 
 
 func _show_paused_overlay():
-	print("show overlay")
-	pass
+	$'../HUD/Pause'.show()
+	
+	
+func _hide_paused_overlay():
+	$'../HUD/Pause'.hide()
+	
 
 func _unhandled_input(event):
 	if event is InputEventKey:
