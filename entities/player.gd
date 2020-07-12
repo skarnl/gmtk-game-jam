@@ -43,6 +43,15 @@ func _ready():
 	$AttackTimer.start()
 	$ChangeTimer.start()
 	$UpdateTimer.start()
+	
+	RandomEffectController.register_effect(self, 'increase_attack_rate', 'Increate Attack Time')
+	RandomEffectController.register_effect(self, 'decrease_attack_rate', 'Decrease Attack Time')
+	RandomEffectController.register_effect(self, '_set_random_attack_time', 'Random Attack Time')
+	RandomEffectController.register_effect(self, 'increase_change_time', 'Increate Change Time')
+	RandomEffectController.register_effect(self, 'decrease_change_time', 'Decrease Change Time')
+	RandomEffectController.register_effect(self, '_set_random_change_time', 'Random Change Time')
+	RandomEffectController.register_effect(self, '_set_random_shooting_direction', 'Change shooting direction')
+	
 
 func _init_weapon():
 	var weapon_instance = load(weapon_scene_path).instance()
@@ -52,6 +61,22 @@ func _init_weapon():
 	weapon = weapon_anchor.get_child(0)
 
 	weapon_path = weapon.get_path()
+
+func increase_attack_rate():
+	$AttackTimer.stop()
+	$AttackTimer.start($AttackTimer.wait_time * 0.9)
+
+func decrease_attack_rate():
+	$AttackTimer.stop()
+	$AttackTimer.start($AttackTimer.wait_time * 1.1)
+
+func increase_change_time():
+	$ChangeTimer.stop()
+	$ChangeTimer.start($ChangeTimer.wait_time * 0.9)
+	
+func decrease_change_time():
+	$ChangeTimer.stop()
+	$ChangeTimer.start($ChangeTimer.wait_time * 1.1)
 
 
 func _on_AttackTimer_timeout():

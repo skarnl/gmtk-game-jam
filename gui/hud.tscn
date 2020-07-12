@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://gui/timers.gd" type="Script" id=1]
 [ext_resource path="res://assets/default.theme" type="Theme" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/fonts/000webfont.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://gui/game_over.gd" type="Script" id=6]
 [ext_resource path="res://gui/pause.gd" type="Script" id=7]
+[ext_resource path="res://gui/changelog.gd" type="Script" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 size = 64
@@ -14,6 +15,13 @@ font_data = ExtResource( 5 )
 
 [sub_resource type="Theme" id=2]
 default_font = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+extra_spacing_bottom = -10
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -198,20 +206,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Changelog" type="Control" parent="."]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Changelog"]
-anchor_right = 0.19
-anchor_bottom = 1.0
-margin_right = 0.439987
-autowrap = true
-
 [node name="Pause" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -225,6 +219,36 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0.392157 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Changelog" type="Control" parent="Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 4 )
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logs" type="Label" parent="Pause/Changelog"]
+anchor_right = 0.19
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 89.0
+margin_right = 0.440002
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Pause/Changelog"]
+margin_left = 8.0
+margin_top = 80.0046
+margin_right = 108.0
+margin_bottom = 94.0046
+text = "applied effects:"
 __meta__ = {
 "_edit_use_anchors_": false
 }

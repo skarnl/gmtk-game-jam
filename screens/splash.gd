@@ -4,7 +4,7 @@ var rng
 
 func _ready():
 	if OS.is_debug_build():
-#		Game.transition_to(Game.GameState.MAIN_MENU)
+		Game.transition_to(Game.GameState.MAIN_MENU)
 		pass
 	
 	rng = RandomNumberGenerator.new()

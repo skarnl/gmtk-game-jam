@@ -13,9 +13,10 @@ var player_reference
 var points = preload('res://gui/points.tscn')
 
 var movement_speed
+var rnd
 
 func _ready():
-	var rnd = RandomNumberGenerator.new()
+	rnd = RandomNumberGenerator.new()
 	rnd.randomize()
 	
 	add_to_group('spawned')
@@ -25,6 +26,7 @@ func _ready():
 	
 	movement_speed = BASE_WALKING_SPEED + rnd.randf_range(-30, 100)
 	points_when_killed = stepify(max(1, BASE_POINTS_WHEN_KILLED + (movement_speed - 100) * MOVEMENT_SPEED_POINTS_RATIO), 0.01) * 100
+
 
 func _physics_process(delta):
 	if not player_reference:
@@ -57,6 +59,19 @@ func get_information():
 	
 	return text
 
+
+func get_movement_speed():
+	return movement_speed
+
+func set_movement_speed(_movement_speed):
+	movement_speed = _movement_speed
+	
+func get_points_when_killed():
+	return points_when_killed
+	
+func set_points_when_killed(_points):
+	points_when_killed = _points
+	
 
 #bullet
 func _on_Area2D_area_entered(area):
