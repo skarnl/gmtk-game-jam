@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://screens/splash.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/gmtk-splash-logo-transparent.png" type="Texture" id=2]
+[ext_resource path="res://assets/sounds/splash-delayed.wav" type="AudioStream" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "intro"
@@ -65,8 +66,8 @@ script = ExtResource( 1 )
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 1280.0
-margin_bottom = 800.0
+margin_right = 1024.0
+margin_bottom = 576.0
 color = Color( 0, 0, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -86,3 +87,7 @@ anims/intro = SubResource( 1 )
 anims/intro_alternative = SubResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+autoplay = true
