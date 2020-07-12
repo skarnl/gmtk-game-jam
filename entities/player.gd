@@ -9,7 +9,7 @@ const ACCELERATION = 1000
 const MAX_SPEED = 250
 const FRICTION = 1500
 const MIN_ATTACK_WAIT_TIME = 0.2
-const MAX_ATTACK_WAIT_TIME = 0.4
+const MAX_ATTACK_WAIT_TIME = 0.9
 
 export(String) var weapon_scene_path
 
@@ -48,7 +48,6 @@ func _init_weapon():
 	weapon = weapon_anchor.get_child(0)
 
 	weapon_path = weapon.get_path()
-#	weapon.connect("attack_finished", self, "_on_Weapon_attack_finished")
 
 
 func _on_AttackTimer_timeout():
@@ -62,10 +61,6 @@ func _on_ChangeTimer_timeout():
 	_randomize()
 	
 	
-func _update_shooting_indicator():
-#	$WeaponPivot/ShootIndicator.value = ($AttackTimer.wait_time - $AttackTimer.time_left) / $AttackTimer.wait_time * 100
-	pass
-	
 func _on_UpdateTimer_timeout():
 	$TimeLabel.text = str(stepify($ChangeTimer.time_left, 0.01))
 #	emit_signal('change_time_changed', $ChangeTimer.time_left)
@@ -75,6 +70,7 @@ func _randomize():
 	
 	_set_random_shooting_direction()
 	_set_random_attack_time()
+	$ReloadAudioPlayer.play()
 	_debug()
 	
 func _physics_process(delta):
@@ -93,7 +89,6 @@ func _physics_process(delta):
 		velocity = Vector2.ZERO
 	
 	move_and_slide(velocity)
-	_update_shooting_indicator()
 
 
 func _set_random_attack_time():
