@@ -139,6 +139,7 @@ func _change_state(new_state):
 		STATES.PAUSED:
 			if _current_state == STATES.PLAY:
 				_current_state = new_state
+				$SlowDown.play()
 				_set_paused(true)
 				_show_paused_overlay()
 				
