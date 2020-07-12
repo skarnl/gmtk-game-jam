@@ -53,8 +53,9 @@ func _on_Area2D_area_entered(area):
 	area.queue_free()
 	
 	$AnimationPlayer.play('die')
+	$DeathSound.play()
 	
-	yield($AnimationPlayer, 'animation_finished')
+	yield($DeathSound, 'finished')
 	
 	queue_free()
 	
