@@ -34,8 +34,9 @@ func _ready():
 	enemy_timer.connect('timeout', self, '_on_EnemyTimer_timeout')
 	
 	player.connect('change_time_changed', self, '_on_Player_change_time_changed')
-	player.connect('debug', self, '_on_Player_debug')
 	player.connect('shooting', self, '_on_Player_shooting')
+	player.connect('moved', self, '_on_Player_moved')
+	player.connect('debug', self, '_on_Player_debug')
 	
 	$'../HUD/GameOver'.hide()
 	
@@ -43,7 +44,6 @@ func _ready():
 	
 	$'../explanation'.show()
 	
-	spawn_enemy()
 
 func _on_Player_debug(text):
 	text += 'EnemySpawnRate: %s' % enemy_timer.wait_time
@@ -51,7 +51,16 @@ func _on_Player_debug(text):
 
 func _on_EnemyTimer_timeout():
 	spawn_enemy()
+
+func _on_Player_moved():
+	player.disconnect('moved', self, '_on_Player_moved')
 	
+	$'../explanation'.start_hide_timeout()
+	
+	yield(get_tree().create_timer(2.3), 'timeout')
+	
+	spawn_enemy()
+
 	
 func _on_Player_shooting():
 	$'../Camera2D'.add_trauma(0.2)
@@ -82,6 +91,9 @@ func _on_enemy_killed(enemy):
 	_update_score(enemy.points_when_killed)
 	_increase_difficulty()
 	
+	if _enemies_killed == 1:
+		enemy_timer.start()
+		
 	yield(get_tree().create_timer(1.2), 'timeout')
 	spawn_enemy()
 
@@ -109,6 +121,7 @@ func reset():
 	player.reset()
 	_hide_game_over()
 	$'../explanation'.reset()
+	player.connect('moved', self, '_on_Player_moved')
 	
 	var allSpawnedEntities = get_tree().get_nodes_in_group('spawned')
 	for entity in allSpawnedEntities:
@@ -122,10 +135,6 @@ func reset():
 	yield(get_tree(), 'idle_frame')
 	
 	enemy_timer.wait_time = DEFAULT_ENEMY_SPAWN_TIME
-	enemy_timer.start()
-	
-	yield(get_tree().create_timer(1), 'timeout')
-	spawn_enemy()
 	
 
 func _set_paused(pause):

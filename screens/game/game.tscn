@@ -87,7 +87,6 @@ position = Vector2( 640, 400 )
 [node name="EnemyTimer" type="Timer" parent="."]
 pause_mode = 1
 wait_time = 3.0
-autostart = true
 
 [node name="PowerupSpawner" type="Node2D" parent="."]
 

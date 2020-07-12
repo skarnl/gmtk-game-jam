@@ -9,8 +9,12 @@ func _ready():
 
 func show():	
 	.show()
-	$AnimationPlayer.play('_setup')
+	$AnimationPlayer.play('_setup')	
+	
+
+func start_hide_timeout():
 	$Timer.start()
+
 	
 func _on_Timer_timeout():
 	$AnimationPlayer.play('fade')

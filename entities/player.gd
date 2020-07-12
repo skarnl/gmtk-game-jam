@@ -3,6 +3,7 @@ extends KinematicBody2D
 signal debug
 signal change_time_changed
 signal shooting
+signal moved
 
 # TODO expose this when paused
 const ACCELERATION = 1000
@@ -82,7 +83,9 @@ func _physics_process(delta):
 		
 	if input_vector != Vector2.ZERO:
 		$AnimationPlayer.play('walk')
-		velocity = input_vector * MAX_SPEED		
+		velocity = input_vector * MAX_SPEED
+		
+		emit_signal('moved')
 		
 	else:
 		$AnimationPlayer.play('idle')
@@ -134,7 +137,7 @@ func attack():
 
 
 func reset():
-	position = Vector2(640, 400)
+	position = Vector2(520, 300)
 	changing = false
 	_set_random_shooting_direction()
 	_set_random_attack_time()
