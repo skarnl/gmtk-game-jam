@@ -23,8 +23,9 @@ func _ready():
 	
 	yield($AnimationPlayer, 'animation_finished')
 	
-	if not OS.is_debug_build():
-		yield(get_tree().create_timer(2.3), 'timeout')
+	$RaksoAnimationPlayer.play('intro')
+	
+	yield($RaksoAnimationPlayer, 'animation_finished')
 	
 	Game.transition_to(Game.GameState.MAIN_MENU)
 
