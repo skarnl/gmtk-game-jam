@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://entities/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://screens/game/game.gd" type="Script" id=2]
@@ -9,12 +9,169 @@
 [ext_resource path="res://assets/sounds/slow_down.ogg" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/RQ-DTB.ogg" type="AudioStream" id=8]
 [ext_resource path="res://gui/explanation.tscn" type="PackedScene" id=9]
+[ext_resource path="res://assets/images/background-scenery.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 576 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 1024, 10 )
+
+[sub_resource type="TileSet" id=3]
+0/name = "background-scenery.png 0"
+0/texture = ExtResource( 10 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "background-scenery.png 1"
+1/texture = ExtResource( 10 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 32, 0, 16, 16 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+2/name = "background-scenery.png 2"
+2/texture = ExtResource( 10 )
+2/tex_offset = Vector2( 0, 0 )
+2/modulate = Color( 1, 1, 1, 1 )
+2/region = Rect2( 48, 16, 16, 16 )
+2/tile_mode = 0
+2/occluder_offset = Vector2( 0, 0 )
+2/navigation_offset = Vector2( 0, 0 )
+2/shape_offset = Vector2( 0, 0 )
+2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+2/shape_one_way = false
+2/shape_one_way_margin = 0.0
+2/shapes = [  ]
+2/z_index = 0
+3/name = "background-scenery.png 3"
+3/texture = ExtResource( 10 )
+3/tex_offset = Vector2( 0, 0 )
+3/modulate = Color( 1, 1, 1, 1 )
+3/region = Rect2( 32, 16, 16, 16 )
+3/tile_mode = 0
+3/occluder_offset = Vector2( 0, 0 )
+3/navigation_offset = Vector2( 0, 0 )
+3/shape_offset = Vector2( 0, 0 )
+3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+3/shape_one_way = false
+3/shape_one_way_margin = 0.0
+3/shapes = [  ]
+3/z_index = 0
+4/name = "background-scenery.png 4"
+4/texture = ExtResource( 10 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 1, 1, 1, 1 )
+4/region = Rect2( 0, 16, 32, 32 )
+4/tile_mode = 0
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "background-scenery.png 5"
+5/texture = ExtResource( 10 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 1, 1, 1, 1 )
+5/region = Rect2( 17, 46, 12, 11 )
+5/tile_mode = 0
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "background-scenery.png 6"
+6/texture = ExtResource( 10 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 1, 1, 1, 1 )
+6/region = Rect2( 42, 47, 8, 9 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
+7/name = "background-scenery.png 7"
+7/texture = ExtResource( 10 )
+7/tex_offset = Vector2( 0, 0 )
+7/modulate = Color( 1, 1, 1, 1 )
+7/region = Rect2( 17, 57, 12, 10 )
+7/tile_mode = 0
+7/occluder_offset = Vector2( 0, 0 )
+7/navigation_offset = Vector2( 0, 0 )
+7/shape_offset = Vector2( 0, 0 )
+7/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+7/shape_one_way = false
+7/shape_one_way_margin = 0.0
+7/shapes = [  ]
+7/z_index = 0
+8/name = "background-scenery.png 8"
+8/texture = ExtResource( 10 )
+8/tex_offset = Vector2( 0, 0 )
+8/modulate = Color( 1, 1, 1, 1 )
+8/region = Rect2( 38, 56, 10, 9 )
+8/tile_mode = 0
+8/occluder_offset = Vector2( 0, 0 )
+8/navigation_offset = Vector2( 0, 0 )
+8/shape_offset = Vector2( 0, 0 )
+8/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+8/shape_one_way = false
+8/shape_one_way_margin = 0.0
+8/shapes = [  ]
+8/z_index = 0
+9/name = "background-scenery.png 9"
+9/texture = ExtResource( 10 )
+9/tex_offset = Vector2( 0, 0 )
+9/modulate = Color( 1, 1, 1, 1 )
+9/region = Rect2( 0, 48, 16, 17 )
+9/tile_mode = 0
+9/occluder_offset = Vector2( 0, 0 )
+9/navigation_offset = Vector2( 0, 0 )
+9/shape_offset = Vector2( 0, 0 )
+9/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+9/shape_one_way = false
+9/shape_one_way_margin = 0.0
+9/shapes = [  ]
+9/z_index = 0
+10/name = "background-scenery.png 10"
+10/texture = ExtResource( 10 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 29, -3, 14, 15 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape_one_way = false
+10/shape_one_way_margin = 0.0
+10/shapes = [  ]
+10/z_index = 0
 
 [node name="World" type="Node2D" groups=[
 "world",
@@ -59,6 +216,12 @@ tile_set = ExtResource( 4 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 0, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 1, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 1, 0, 24, 1, 0, 25, 1, 0, 26, 1, 0, 27, 1, 0, 28, 1, 0, 29, 1, 0, 30, 1, 0, 31, 1, 0, 32, 1, 0, 33, 1, 0, 34, 1, 0, 35, 1, 0, 36, 1, 0, 37, 1, 0, 38, 1, 0, 39, 1, 0, 40, 1, 0, 41, 1, 0, 42, 1, 0, 43, 1, 0, 44, 1, 0, 45, 1, 0, 46, 1, 0, 47, 1, 0, 48, 1, 0, 49, 1, 0, 50, 1, 0, 51, 1, 0, 52, 1, 0, 53, 1, 0, 54, 1, 0, 55, 1, 0, 56, 1, 0, 57, 1, 0, 58, 1, 0, 59, 1, 0, 60, 1, 0, 61, 1, 0, 62, 1, 0, 63, 2, 0, 65536, 6, 0, 65599, 7, 0, 131072, 6, 0, 131135, 7, 0, 196608, 6, 0, 196671, 7, 0, 262144, 6, 0, 262207, 7, 0, 327680, 6, 0, 327743, 7, 0, 393216, 6, 0, 393279, 7, 0, 458752, 6, 0, 458815, 7, 0, 524288, 6, 0, 524351, 7, 0, 589824, 6, 0, 589887, 7, 0, 655360, 6, 0, 655423, 7, 0, 720896, 6, 0, 720959, 7, 0, 786432, 6, 0, 786495, 7, 0, 851968, 6, 0, 852031, 7, 0, 917504, 6, 0, 917567, 7, 0, 983040, 6, 0, 983103, 7, 0, 1048576, 6, 0, 1048639, 7, 0, 1114112, 6, 0, 1114175, 7, 0, 1179648, 6, 0, 1179711, 7, 0, 1245184, 6, 0, 1245247, 7, 0, 1310720, 6, 0, 1310783, 7, 0, 1376256, 6, 0, 1376319, 7, 0, 1441792, 6, 0, 1441855, 7, 0, 1507328, 6, 0, 1507391, 7, 0, 1572864, 6, 0, 1572927, 7, 0, 1638400, 6, 0, 1638463, 7, 0, 1703936, 6, 0, 1703999, 7, 0, 1769472, 6, 0, 1769535, 7, 0, 1835008, 6, 0, 1835071, 7, 0, 1900544, 6, 0, 1900607, 7, 0, 1966080, 6, 0, 1966143, 7, 0, 2031616, 6, 0, 2031679, 7, 0, 2097152, 6, 0, 2097215, 7, 0, 2162688, 6, 0, 2162751, 7, 0, 2228224, 6, 0, 2228287, 7, 0, 2293760, 8, 0, 2293761, 9, 0, 2293762, 9, 0, 2293763, 9, 0, 2293764, 9, 0, 2293765, 9, 0, 2293766, 9, 0, 2293767, 9, 0, 2293768, 9, 0, 2293769, 9, 0, 2293770, 9, 0, 2293771, 9, 0, 2293772, 9, 0, 2293773, 9, 0, 2293774, 9, 0, 2293775, 9, 0, 2293776, 9, 0, 2293777, 9, 0, 2293778, 9, 0, 2293779, 9, 0, 2293780, 9, 0, 2293781, 9, 0, 2293782, 9, 0, 2293783, 9, 0, 2293784, 9, 0, 2293785, 9, 0, 2293786, 9, 0, 2293787, 9, 0, 2293788, 9, 0, 2293789, 9, 0, 2293790, 9, 0, 2293791, 9, 0, 2293792, 9, 0, 2293793, 9, 0, 2293794, 9, 0, 2293795, 9, 0, 2293796, 9, 0, 2293797, 9, 0, 2293798, 9, 0, 2293799, 9, 0, 2293800, 9, 0, 2293801, 9, 0, 2293802, 9, 0, 2293803, 9, 0, 2293804, 9, 0, 2293805, 9, 0, 2293806, 9, 0, 2293807, 9, 0, 2293808, 9, 0, 2293809, 9, 0, 2293810, 9, 0, 2293811, 9, 0, 2293812, 9, 0, 2293813, 9, 0, 2293814, 9, 0, 2293815, 9, 0, 2293816, 9, 0, 2293817, 9, 0, 2293818, 9, 0, 2293819, 9, 0, 2293820, 9, 0, 2293821, 9, 0, 2293822, 9, 0, 2293823, 10, 0 )
+
+[node name="floor" type="TileMap" parent="Borders"]
+tile_set = SubResource( 3 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 131089, 8, 0, 131115, 4, 0, 196632, 6, 0, 262151, 8, 0, 262170, 5, 0, 262181, 9, 0, 327722, 8, 0, 327723, 7, 0, 327724, 9, 0, 327734, 0, 0, 393269, 6, 0, 458776, 0, 0, 524299, 5, 0, 589832, 4, 0, 589883, 8, 0, 655370, 6, 0, 720913, 9, 0, 720946, 2, 0, 720947, 6, 0, 786484, 6, 0, 851989, 8, 0, 917521, 8, 0, 917555, 4, 0, 1048587, 7, 0, 1114170, 8, 0, 1179695, 1, 0, 1179705, 6, 0, 1245205, 9, 0, 1245222, 0, 0, 1376280, 8, 0, 1376283, 6, 0, 1507334, 5, 0, 1507346, 1, 0, 1572872, 4, 0, 1572900, 9, 0, 1638428, 9, 0, 1703943, 6, 0, 1703946, 7, 0, 1835030, 9, 0, 1835059, 6, 0, 1900575, 6, 0, 1900603, 5, 0, 1966093, 9, 0, 1966109, 9, 0, 2031654, 9, 0, 2097200, 9, 0, 2162714, 6, 0, 2162723, 4, 0 )
 
 [node name="GameLogic" type="Node2D" parent="."]
 pause_mode = 2
