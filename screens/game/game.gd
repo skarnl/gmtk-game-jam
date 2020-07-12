@@ -148,6 +148,7 @@ func _change_state(new_state):
 			_set_paused(false)
 
 func _show_game_over():
+	$PlayerDie.play()
 	$'../HUD/GameOver/PopupDialog'.popup()
 
 func _hide_game_over():
