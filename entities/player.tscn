@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/images/player-walk.png" type="Texture" id=1]
 [ext_resource path="res://entities/player.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/images/player-walk-eyes.png" type="Texture" id=5]
 [ext_resource path="res://assets/images/aim.png" type="Texture" id=6]
 [ext_resource path="res://assets/sounds/177054__woodmoose__lowerguncock.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/default.theme" type="Theme" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.96715
@@ -123,6 +124,7 @@ margin_left = -19.6724
 margin_top = -41.2099
 margin_right = 20.3276
 margin_bottom = -27.2099
+theme = ExtResource( 8 )
 align = 1
 valign = 1
 __meta__ = {
