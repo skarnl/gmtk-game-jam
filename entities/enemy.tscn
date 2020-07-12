@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/images/enemy-die.png" type="Texture" id=3]
 [ext_resource path="res://assets/sounds/enemy-kill.wav" type="AudioStream" id=4]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 resource_name = "die"
 length = 0.4
 tracks/0/type = "value"
@@ -45,7 +45,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -82,8 +82,8 @@ hframes = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "walk"
-anims/die = SubResource( 4 )
-anims/walk = SubResource( 5 )
+anims/die = SubResource( 1 )
+anims/walk = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 3 )
@@ -93,8 +93,7 @@ collision_layer = 4
 collision_mask = 8
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-visible = false
-polygon = PoolVector2Array( -0.502693, -12.1874, 9.05404, -0.152988, 8.70008, 11.5275, -6.75586, 11.2915, -9.4695, 4.21243, -9.23353, -8.76584, -5.22206, -13.0133 )
+polygon = PoolVector2Array( -1.36485, -9.82001, 6.14362, 1.02556, 5.80991, 8.86774, -5.20251, 9.53516, -7.53848, 3.69524, -7.70534, -6.1492, -5.20251, -10.1537 )
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )

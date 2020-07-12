@@ -34,9 +34,17 @@ func _physics_process(delta):
 	var motion = (player_reference.get_global_position() - global_position)
 	move_and_slide(motion.normalized() * movement_speed)
 	
-	$Sprite.flip_h = motion.normalized().x > 0
+	var flip = motion.normalized().x > 0
+	$Sprite.flip_h = flip
 	
-#	look_at(player_reference.position)
+	var collisionScale = $Area2D/CollisionPolygon2D.scale
+	
+	if flip:
+		collisionScale.x = -1
+	else:
+		collisionScale.x = 1
+
+	$Area2D/CollisionPolygon2D.scale = collisionScale
 
 
 func _disable_collisions():
