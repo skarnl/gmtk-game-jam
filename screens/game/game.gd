@@ -74,7 +74,7 @@ func spawn_enemy():
 	var player_position = player.global_position
 	var enemy_position = player_position
 	
-	while enemy_position.distance_to(player_position) < 150:
+	while enemy_position.distance_to(player_position) < 250:
 		enemy_position = Vector2(rnd.randf_range(0, screen_size.x), rnd.randf_range(0, screen_size.y))
 	
 	enemy.position = enemy_position
@@ -86,7 +86,9 @@ func spawn_enemy():
 
 
 func _on_Player_change_time_changed(time_left):
-	$'../HUD/Timers'.update_change_time(time_left)
+#	$'../HUD/Timers'.update_change_time(time_left)
+#	$'../Control/TimeLabel'.text = time_left
+	pass
 
 func _on_enemy_killed(enemy):
 	_enemies_killed += 1
