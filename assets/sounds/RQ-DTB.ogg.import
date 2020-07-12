@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/RQ-DTB.ogg-7cbc303b2db032de299335d79a24d1f4.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/RQ-DTB.ogg"
+dest_files=[ "res://.import/RQ-DTB.ogg-7cbc303b2db032de299335d79a24d1f4.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
