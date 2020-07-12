@@ -12,6 +12,9 @@ const FRICTION = 1500
 const MIN_ATTACK_WAIT_TIME = 0.2
 const MAX_ATTACK_WAIT_TIME = 0.9
 
+const MIN_CHANGE_TIME = 2
+const MAX_CHANGE_TIME = 9
+
 export(String) var weapon_scene_path
 
 var SHOOTING_DIRECTION = Vector2.RIGHT
@@ -63,14 +66,15 @@ func _on_ChangeTimer_timeout():
 	
 	
 func _on_UpdateTimer_timeout():
-	$TimeLabel.text = str(stepify($ChangeTimer.time_left, 0.01))
-#	emit_signal('change_time_changed', $ChangeTimer.time_left)
+	$TimeLabel.text = "%.1f" % $ChangeTimer.time_left
+	
 	
 func _randomize():
 	changing = true
 	
 	_set_random_shooting_direction()
 	_set_random_attack_time()
+	_set_random_change_time()
 	$ReloadAudioPlayer.play()
 	_debug()
 	
@@ -96,6 +100,9 @@ func _physics_process(delta):
 
 func _set_random_attack_time():
 	$AttackTimer.wait_time = rnd.randf_range(MIN_ATTACK_WAIT_TIME, MAX_ATTACK_WAIT_TIME)
+
+func _set_random_change_time():
+	$ChangeTimer.wait_time = rnd.randf_range(MIN_CHANGE_TIME, MAX_CHANGE_TIME)
 
 
 func _set_random_shooting_direction():
@@ -139,8 +146,12 @@ func attack():
 func reset():
 	position = Vector2(520, 300)
 	changing = false
+	
 	_set_random_shooting_direction()
 	_set_random_attack_time()
+	_set_random_change_time()
+	
+	_debug()
 
 
 func _debug():
