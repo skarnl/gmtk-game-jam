@@ -28,7 +28,6 @@ config/icon="res://assets/images/icon.png"
 
 SceneLoader="*res://global/scene_loader.gd"
 Game="*res://global/game.gd"
-RandomEffectController="*res://global/random_effect_controller.gd"
 
 [display]
 

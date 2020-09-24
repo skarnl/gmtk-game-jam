@@ -7,7 +7,6 @@ func _ready():
 	
 	add_to_group('spawned')
 	
-	RandomEffectController.register_powerup(self)
 	$AnimationPlayer.play('spawn')
 	
 
