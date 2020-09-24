@@ -9,6 +9,8 @@ const MAX_ATTACK_TIME = 7
 var rnd = RandomNumberGenerator.new()
 
 func _ready():
+	print('random attack triger')
+	
 	rnd.randomize()
 	
 	_set_random_time()

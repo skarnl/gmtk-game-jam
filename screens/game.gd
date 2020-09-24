@@ -39,9 +39,7 @@ func _ready():
 	player.connect('change_time_changed', self, '_on_Player_change_time_changed')
 	player.connect('shooting', self, '_on_Player_shooting')
 	player.connect('moved', self, '_on_Player_moved')
-	player.connect('debug', self, '_on_Player_debug')
-	
-	_register_effects()
+#	player.connect('debug', self, '_on_Player_debug')
 	
 	$'../HUD/GameOver'.hide()
 	
@@ -49,87 +47,6 @@ func _ready():
 	
 	$'../explanation'.show()
 	
-
-func _register_effects():
-	RandomEffectController.register_effect(self, 'increase_powerup_chance', 'Increase Powerup Drop Chance')
-	RandomEffectController.register_effect(self, 'decrease_powerup_chance', 'Decrease Powerup Drop Chance')
-	RandomEffectController.register_effect(self, 'randomize_powerup_chance', 'Randomize Powerup Drop Chance')
-	RandomEffectController.register_effect(self, 'increase_enemy_spawn_rate', 'Increase Enemy spawn rate')
-	RandomEffectController.register_effect(self, 'decrease_enemy_spawn_rate', 'Decrease Enemy spawn rate')
-	RandomEffectController.register_effect(self, 'randomize_enemy_spawn_rate', 'Randomize Enemy spawn rate')
-	RandomEffectController.register_effect(self, 'spawn_enemy', 'Spawn Enemy')
-	RandomEffectController.register_effect(self, 'increase_random_enemy_movement_speed', 'Increase Enemy movement speed')
-	RandomEffectController.register_effect(self, 'decrease_random_enemy_movement_speed', 'Decrease Enemy movement speed')
-	RandomEffectController.register_effect(self, 'randomize_random_enemy_movement_speed', 'Randomize Enemy movement speed')
-	RandomEffectController.register_effect(self, 'increase_random_enemy_points', 'Increase Enemy points')
-	RandomEffectController.register_effect(self, 'decrease_random_enemy_points', 'Decrease Enemy points')
-	RandomEffectController.register_effect(self, 'randomize_random_enemy_points', 'Randomize Enemy points')
-
-func increase_powerup_chance():
-	print("increase powerup chance")
-	
-	_powerup_chance += 0.1
-
-func decrease_powerup_chance():
-	print("decrease powerup chance")
-	
-	_powerup_chance -= 0.1
-
-
-func randomize_powerup_chance():
-	print("randomize powerup chance")
-	
-	_powerup_chance = rnd.randf_range(0.1, 1)
-	
-func increase_enemy_spawn_rate():
-	print("increase_enemy_spawn_rate")
-	_increase_difficulty()
-	
-func decrease_enemy_spawn_rate():
-	print("decrease_enemy_spawn_rate")
-	_decrease_difficulty()
-
-func randomize_enemy_spawn_rate():
-	enemy_timer.wait_time = rnd.randf_range(0.1, DEFAULT_ENEMY_SPAWN_TIME)
-
-
-func _get_random_enemy():
-	var enemyNodes = get_tree().get_nodes_in_group('enemies')
-	enemyNodes.shuffle()
-	
-	return enemyNodes.front()
-
-func increase_random_enemy_movement_speed():
-	var enemy = _get_random_enemy()
-	var speed = enemy.get_movement_speed()
-	enemy.set_movement_speed(speed * 1.1)
-	
-func decrease_random_enemy_movement_speed():
-	var enemy = _get_random_enemy()
-	var speed = enemy.get_movement_speed()
-	enemy.set_movement_speed(speed * 0.9)
-	
-func randomize_random_enemy_movement_speed():
-	var enemy = _get_random_enemy()
-	enemy.set_movement_speed(rnd.randf_range(-130, 200))
-	
-func increase_random_enemy_points():
-	var enemy = _get_random_enemy()
-	var points = enemy.get_points_when_killed()
-	enemy.set_points_when_killed(points * 1.1)
-	
-func decrease_random_enemy_points():
-	var enemy = _get_random_enemy()
-	var points = enemy.get_points_when_killed()
-	enemy.set_points_when_killed(points * 0.9)
-	
-func randomize_random_enemy_points():
-	var enemy = _get_random_enemy()
-	enemy.set_points_when_killed(rnd.randf_range(0, 1000))
-
-func _on_Player_debug(text):
-	text += 'EnemySpawnRate: %s' % enemy_timer.wait_time
-	$'../HUD/Debug'.set_text(text)	
 
 func _on_EnemyTimer_timeout():
 	spawn_enemy()
@@ -168,7 +85,7 @@ func spawn_enemy():
 
 
 func _on_Player_change_time_changed(time_left):
-#	$'../HUD/Timers'.update_change_time(time_left)
+	$'../HUD/Timers'.update_change_time(time_left)
 #	$'../Control/TimeLabel'.text = time_left
 	pass
 
@@ -262,7 +179,6 @@ func _change_state(new_state):
 			if _current_state == STATES.PAUSED:
 				_current_state = new_state
 				_set_paused(false)
-				_hide_paused_overlay()
 				_spawn_enemy_if_needed()
 		
 		STATES.GAME_OVER:
@@ -276,7 +192,6 @@ func _change_state(new_state):
 				_current_state = new_state
 				$SlowDown.play()
 				_set_paused(true)
-				_show_paused_overlay()
 				
 		STATES.RESTART:
 			_current_state = STATES.PLAY
@@ -290,28 +205,6 @@ func _show_game_over():
 func _hide_game_over():
 	$'../HUD/GameOver'.hide()
 
-
-func _show_paused_overlay():
-	$'../HUD/Pause'.set_global_information(_get_global_information())
-	$'../HUD/Pause'.show()
-	
-	
-func _hide_paused_overlay():
-	$'../HUD/Pause'.hide()
-	
-	
-func _get_global_information():
-	var enemy_nodes = get_tree().get_nodes_in_group('enemies')
-	
-	var text = 'score: %s\n' % _score
-	text += 'powerup chance: %s\n' % _powerup_chance
-	text += 'enemy spawn rate: %.2f\n' % enemy_timer.wait_time
-	text += 'times restarted: %s\n' % restart_count
-	text += 'enemies killed: %s\n' % _enemies_killed
-	text += 'enemies alive: %s\n' % enemy_nodes.size()
-	text += 'enemies total %s\n' % str(_enemies_killed + enemy_nodes.size())
-	
-	return text
 
 func _unhandled_input(event):
 	if event is InputEventKey:
